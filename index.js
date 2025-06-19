@@ -1,8 +1,11 @@
+import express from 'express';
+import session from 'express-session';
+
 const app = express();
 const porta = 3000;
 const urlDb = "http://localhost:4000/"
 
-app.use(express.encodeURI({extended : true }));
+express.urlencoded({extended : true });
 
 app.use(session({
   secret: "MinhaChave",
@@ -14,3 +17,12 @@ app.use(session({
   }
 }));
 
+app.use(express.static('/publico'));
+
+app.get('/', (req, res)=>{
+  res.send("Em manutenção");
+})
+
+app.listen( porta , ()=>{
+  console.log(`Servidor iniciado na porta ${porta}`);
+})
