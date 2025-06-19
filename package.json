@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "node": "^24.2.0",
+    "node-fetch": "^3.3.2"
+  },
+  "name": "sistema-dantafenix",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GouveiaGSilva/Sistema-DantaFenix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GouveiaGSilva/Sistema-DantaFenix/issues"
+  },
+  "homepage": "https://github.com/GouveiaGSilva/Sistema-DantaFenix#readme",
+  "description": ""
+}
