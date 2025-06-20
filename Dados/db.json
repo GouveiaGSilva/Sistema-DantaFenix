@@ -12,7 +12,12 @@
 
 ],
 "Cadastros":[
-
+  {
+    "nome" : "Guilherme Gouveia",
+    "email" : "gouveiagsilva@gmail.com",
+    "senha" : "123",
+    "cargo" : "tocador"
+  }
 ],
 "Faltas":[
 
