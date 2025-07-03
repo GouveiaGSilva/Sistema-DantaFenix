@@ -8,8 +8,13 @@
 "Instrumentos":[
 
 ],
-"Apresentações":[
-
+"Apresentacoes":[
+  {
+    "dia" : 21,
+    "mes" : "Junho",
+    "horario" : "19:30",
+    "local" : "Av. algum lugar"
+  }
 ],
 "Cadastros":[
   {

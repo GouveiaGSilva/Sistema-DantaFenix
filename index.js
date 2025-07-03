@@ -1,6 +1,7 @@
 import { error } from 'console';
 import express from 'express';
 import session from 'express-session';
+import  verificaLogin  from "./Seguranca/Autenticacao.js";
 
 const app = express();
 const porta = 3000;
@@ -10,12 +11,12 @@ const urlDb = "http://localhost:4000/"
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
-  secret: "MinhaChave",
-  resave: false,
-  saveUninitialized: true,
-  cookie: { 
-    secure: false, 
-    maxAge : 60 * 60 * 60
+  secret:"M1nH4Ch4v3S3cR3t4",
+  resave: true,
+  saveUninitialized:false,
+  cookie: {
+    maxAge: 1000 * 60 * 15,
+    httpOnly: true
   }
 }));
 
@@ -37,7 +38,7 @@ app.post('/login', (req, res)=>{
   .then((data)=>{
     if(data.length > 0){
       if(data[0].senha === senha){
-        req.session.login = true;
+        req.session.autenticado = true;
         if(data[0].cargo === "tocador")
           return res.redirect('/menuTocador.html');
         else
@@ -45,14 +46,117 @@ app.post('/login', (req, res)=>{
       }
     }
     else{
-      
-      return console.log("senha errada");
+      let conteudo = `
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Template de login, usando Bootstrap.</title>
+
+    <!-- Principal CSS do Bootstrap -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Estilos customizados para esse template -->
+<style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+      align-items: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background-color: #ffff;
+    }
+
+    .form-signin {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: auto;
+    }
+
+    .form-signin .checkbox {
+      font-weight: 400;
+    }
+
+    .form-signin .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .form-signin .form-control:focus {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    .form-control {
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+  
+  </style>
+  </head>
+
+  <body class="text-center">
+    <form method="POST" action="/login" class="form-signin " id="loginForm" novalidate >
+      <img class="mb-4" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_EW1pVi14HZShWF8KD4Uu3NALLJ7uBalzJA&s" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Faça login</h1>
+      <label id="labelEmail" for="inputEmail" class="sr-only">Endereço de email</label>
+      <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Seu email" required>
+      <div id="emailError" class="invalid-feedback text-left" >*Insira um Email Válido </div>
+      <label id="labelPassword" for="inputPassword" class="sr-only">Senha</label>
+      <input name="senha" type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+      <div id="senhaError" class="invalid-feedback text-left" >*Insira uma senha Válida </div>
+      <div id="msgLogin" class="text-left" ></div>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Lembrar de mim
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+      <div id="senhaError" class="text-center text-danger" >*Usuario ou Senha incorretos </div>
+      <a href="/" class="btn btn-lg btn-light btn-block border">Voltar </a>
+    </form>
+      <script src="/scricpts/login.js"> </script>
+  </body>
+</html>
+`
+      return res.send(conteudo);
     }
   })
   .catch((error)=>{
     console.error("Erro:" + error);
+    res.redirect('/');
   })
 });
+
+app.use(verificaLogin,express.static('./Privado'));
 
 app.listen( porta , ()=>{
   console.log(`Servidor iniciado na porta ${porta}`);
