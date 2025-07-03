@@ -1,6 +1,15 @@
 const urlDb = "http://localhost:4000";
 
-let apre = [];
+  let ano=0;
+  let apre = [];
+  let dataAtual;
+  let mesAtual;
+  let anoAtual;
+  let diaAtual;
+  const setaP ='';
+  const setaN ='';
+
+
 async function getApre() {
   return fetch(`${urlDb}/Apresentacoes`)
     .then((res) => {
@@ -35,17 +44,21 @@ function getNomeMes(mes) {
   return meses[mes];
 }
 
+
 // Função principal para renderizar o calendário
-async function  renderCalendario() {
-  const dataAtual = new Date();
-  const mesAtual = dataAtual.getMonth();
-  const anoAtual = dataAtual.getFullYear();
-  const diaAtual = dataAtual.getDate();
-  const apre = await getApre();
+async function  renderCalendario(som) {
+
+  dataAtual = new Date();
+  mesAtual =  Math.abs(dataAtual.getMonth() + som);
+  anoAtual = dataAtual.getFullYear();
+  diaAtual = dataAtual.getDate();
+  apre = await getApre();
+
+  let calendario = document.getElementById('calendario');
 
   // Atualiza o cabeçalho com mês e ano
   const headerElement = document.getElementById('mes-ano');
-  headerElement.textContent = `${getNomeMes(mesAtual)} ${anoAtual}`;
+  headerElement.textContent = `${getNomeMes((mesAtual)%12)} ${anoAtual}`;
 
   // Primeiro dia do mês e quantidade de dias no mês
   const primeiroDiaDoMes = new Date(anoAtual, mesAtual, 1).getDay();
@@ -87,8 +100,9 @@ async function  renderCalendario() {
 
     for (const apresentacao of apre) {
       let mesApre = apresentacao.mes.toLowerCase();
-      let mesAtualNome = getNomeMes(mesAtual).toLowerCase();
-      if (apresentacao.dia === diaContador && mesApre === mesAtualNome) {
+      let mesAtualNome = getNomeMes((mesAtual)%12).toLowerCase();
+      let anoApre = apresentacao.ano;
+      if (apresentacao.dia === diaContador && mesApre === mesAtualNome && anoAtual == anoApre) {
         coluna.classList.add('dia-apresentacao');
         coluna.innerHTML = diaContador + '<br>' + apresentacao.horario; 
         coluna.style.color = "black";
@@ -100,15 +114,34 @@ async function  renderCalendario() {
 
     linha.appendChild(coluna);
     diaContador++;
-
   }
 
   // Adiciona a última linha se necessário
   if (linha.children.length > 0) {
     tbody.appendChild(linha);
   }
+
+
+  let div = document.getElementById('setas');
+  div.innerHTML="";
+  let seta="";
+
+  if(!(anoAtual === 2025 && getNomeMes((mesAtual)%12).toLowerCase() === 'janeiro')){
+  seta = `<button onclick="renderCalendario(${som-1})">anterior</button>` 
+  }
+
+  seta += `<button onclick="renderCalendario(${0})">Mês Atual</button>`
+
+  if(!(anoAtual === 2025 && getNomeMes((mesAtual)%12).toLowerCase() === 'dezembro')){
+    seta += `<button onclick="renderCalendario(${som+1})">proximo</button>`
+  }
+  
+  div.innerHTML=seta;
 }
 
 // Renderiza o calendário quando a página carregar
-document.addEventListener('DOMContentLoaded', renderCalendario);
+document.addEventListener('DOMContentLoaded', renderCalendario(0));
+
+
+
 

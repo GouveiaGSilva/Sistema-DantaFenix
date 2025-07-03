@@ -26,6 +26,11 @@ app.get('/', (req, res)=>{
   res.redirect('/index.html');
 })
 
+app.get('/logout', (req ,res)=>{
+  req.session.destroy();
+  res.redirect('/');
+})
+
 app.post('/login', (req, res)=>{
   const {email , senha} = req.body;
   fetch(`${urlDb}/Cadastros?email=${email}`,)

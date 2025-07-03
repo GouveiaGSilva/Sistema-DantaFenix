@@ -24,7 +24,7 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sair</a>
+          <a class="nav-link" href="/logout">Sair</a>
         </li>
       </ul>
     </nav>
@@ -112,13 +112,13 @@
             <h1 class="h2">Calendário</h1>
 
           </div>
-          <div class="calendario">
+          <div class="calendario" id="calendario">
               <!-- Cabeçalho dinâmico com mês e ano -->
               <div class="calendario-header" id="mes-ano">
                 Carregando...
               </div>
 
-              <table>
+              <table style="min-height: 25rem;">
                 <thead>
                   <tr>
                     <th>Dom</th>
@@ -134,6 +134,9 @@
                   <!-- Os dias serão gerados dinamicamente via JavaScript -->
                 </tbody>
               </table>
+              <div class="setas justify-content-around" id="setas">
+
+              </div>
             </div>
 
           <h2>Próximas Apresentações</h2>

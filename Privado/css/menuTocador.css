@@ -11,6 +11,17 @@
   width: 340px;
 }
 
+.setas {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  width: 340px;
+  display: flex;
+  justify-content: space-around;
+}
+
 /* Cabeçalho do calendário com mês e ano */
 .calendario-header {
   background-color: #4a90e2;
