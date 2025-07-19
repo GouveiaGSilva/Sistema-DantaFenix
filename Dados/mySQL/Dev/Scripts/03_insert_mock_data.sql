@@ -50,13 +50,13 @@ VALUE (1, '12345678901', 'Carlos Silva', 2, 28, 'Masculino', 'Rua das Acácias, 
 
 -- Isert da tabela instrumentos;
 INSERT
-INTO instrumentos (id, nome, condicao, idFornecedores)
-VALUES (1, 'Taiko', 'Ótimo', 1),
-(2, 'Shime-daiko', 'Bom', 2),
-(3, 'Okedo-daiko', 'Regular', 3),
-(4, 'Cencerro', 'Novo', 2),
-(5, 'Bombo', 'Bom', 3),
-(6, 'Flauta', 'Excelente', 1);
+INTO instrumentos (id, nome, condicao, quantidade, idFornecedores) 
+VALUES(2, 'Shime-daiko', 'Bom', 6, 2),
+(3, 'Okedo-daiko', 'Regular', 3, 3),
+(4, 'Chappa', 'Novo', 5, 1),
+(7, 'Kane', 'Bom', 3, 2),
+(9, 'Uchiwa-daiko', 'Ruim', 2, 3),
+(10, 'Bamboo Flute', 'Novo', 5, 2);
 
 
 -- Isert da tabela musicas_Instrumentos
