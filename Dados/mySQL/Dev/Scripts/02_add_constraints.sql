@@ -17,6 +17,16 @@ ADD CONSTRAINT FK_instrumentos_idFornecedores
 FOREIGN KEY (idFornecedores) REFERENCES fornecedores(id);
 
 
+-- Constraints da tabela instrumentos_Condicoes
+ALTER TABLE instrumentos_Condicoes
+ADD CONSTRAINT FK_instrumentos_idInstrumentos
+FOREIGN KEY (idInstrumentos) REFERENCES instrumentos(id),
+ADD CONSTRAINT FK_condicoes_idCondicoes
+FOREIGN KEY (idCondicoes) REFERENCES condicoes(id),
+ADD CONSTRAINT PK_instrumentos_Condicoes_idInstrumentos_idCondicoes
+PRIMARY KEY (idInstrumentos, idCondicoes);
+
+
 -- Constraints da tabela musicas_Instrumentos
 ALTER TABLE musicas_Instrumentos
 ADD CONSTRAINT FK_musicas_Instrumentos_idMusicas

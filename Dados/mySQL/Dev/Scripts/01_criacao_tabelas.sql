@@ -43,9 +43,21 @@ CREATE TABLE IF NOT EXISTS fornecedores(
 CREATE TABLE IF NOT EXISTS instrumentos(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45) NOT NULL,
-    condicao VARCHAR(20) NOT NULL UNIQUE,
-    quantidade INT NOT NULL,
     idFornecedores INTEGER
+    
+);
+
+CREATE TABLE IF NOT EXISTS condicoes(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    condicao VARCHAR(45) NOT NULL UNIQUE
+    
+);
+
+CREATE TABLE IF NOT EXISTS instrumentos_Condicoes(
+	idInstrumentos INTEGER,
+    idCondicoes INTEGER,
+    quantidade INTEGER NOT NULL CHECK(quantidade >=0),
+    observacao VARCHAR(45) DEFAULT 'Sem Alteração'
     
 );
 

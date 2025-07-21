@@ -50,26 +50,45 @@ VALUE (1, '12345678901', 'Carlos Silva', 2, 28, 'Masculino', 'Rua das Acácias, 
 
 -- Isert da tabela instrumentos;
 INSERT
-INTO instrumentos (id, nome, condicao, quantidade, idFornecedores) 
-VALUES(2, 'Shime-daiko', 'Bom', 6, 2),
-(3, 'Okedo-daiko', 'Regular', 3, 3),
-(4, 'Chappa', 'Novo', 5, 1),
-(7, 'Kane', 'Bom', 3, 2),
-(9, 'Uchiwa-daiko', 'Ruim', 2, 3),
-(10, 'Bamboo Flute', 'Novo', 5, 2);
+INTO instrumentos (id, nome, idFornecedores) 
+VALUES(2, 'Shime-daiko', 2),
+(3, 'Okedo-daiko', 3),
+(4, 'Chappa', 1),
+(7, 'Kane', 2),
+(9, 'Uchiwa-daiko', 3),
+(10, 'Bamboo Flute',  2);
+
+-- Isert da tabela condicoes
+INSERT
+INTO condicoes (id,condicao)
+VALUES (1,'Excelente'),
+(2,'Bom'),
+(3,'Mediano'),
+(4,'Ruim'),
+(5,'Suspenso'),
+(6,'Reforma'),
+(7,'faltoso');
+
+
+-- Insert da tabela instrumentos_condicoes
+INSERT
+INTO instrumentos_condicoes(idInstrumentos, idCondicoes, observacao, quantidade)
+VALUES (2, 1, NULL , 3),
+(2,3,NULL,5),
+(2,5,'Trocar couro',3);
 
 
 -- Isert da tabela musicas_Instrumentos
 INSERT
 INTO musicas_Instrumentos (idMusicas, idInstrumentos, qntInstrumentos)
-VALUES (1, 1, 3),
+VALUES (1, 9, 3),
 (1, 2, 2),
-(2, 1, 4),
+(2, 7, 4),
 (3, 3, 1),
 (4, 4, 2),
-(4, 6, 1),
-(5, 5, 3),
-(6, 1, 2);
+(4, 9, 1),
+(5, 10, 3),
+(6, 2, 2);
 
 
 -- Isert da tabela musicas_Integrantes
@@ -86,20 +105,20 @@ VALUES (1, 1, 'Avançado'),
 -- Isert da tabela integrantes_Instrumentos
 INSERT
 INTO integrantes_Instrumentos (idIntegrantes, idInstrumentos, proficiencia)
-VALUES (1, 1, 'Avançado'),
+VALUES (1, 2, 'Avançado'),
 (2, 2, 'Intermediário'),
 (3, 3, 'Iniciante'),
 (4, 4, 'Avançado'),
-(5, 5, 'Intermediário'),
-(6, 6, 'Avançado');
+(5, 7, 'Intermediário'),
+(6, 9, 'Avançado');
 
 
 -- Isert da tabela apresentacoes_Detalhadas
 INSERT
 INTO apresentacoes_Detalhadas (idIntegrantes, idApresentacoes, idMusicas, idInstrumentos)
-VALUES (1, 1, 1, 1),
+VALUES (1, 1, 1, 2),
 (2, 2, 2, 2),
 (3, 3, 3, 3),
-(4, 4, 4, 4),
-(5, 5, 5, 5),
-(6, 5, 6, 6);
+(4, 4, 4, 7),
+(5, 5, 5, 9),
+(6, 5, 6, 10);
