@@ -161,7 +161,7 @@ app.post('/login', (req, res)=>{
   })
 });
 
-app.use(verificaLogin,express.static('./Privado'));
+app.use(express.static('./Privado'));
 
 app.listen( porta , ()=>{
   console.log(`Servidor iniciado na porta ${porta}`);
